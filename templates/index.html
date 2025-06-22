@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split✨</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="theme-toggle">
+  <input type="checkbox" id="dark-mode" class="dark-toggle">
+  <label for="dark-mode">🌙</label>
+</div>
+
+<div class="app-container">
+  <div class="header">
+    <h1>Split<span class="accent">✨</span></h1>
+    <p class="tagline">split bills. not friendships.</p>
+  </div>
+
+  <!-- Image Upload Section -->
+  <div class="upload-section" id="upload-section">
+    <div class="upload-area" id="upload-area">
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      <div class="upload-content">
+        <div class="upload-icon">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 17V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H19C20.1 3 21 3.9 21 5V7M16 12L12 8M12 8L8 12M12 8V20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p>snap a pic of your bill</p>
+        <button class="btn btn-primary pulse" id="chooseImageBtn">Choose Image</button>
+      </div>
+    </div>
+    <div id="image-preview" class="image-preview" style="display:none;">
+      <div class="preview-container">
+        <img id="preview-img" src="" alt="Selected bill">
+        <div class="overlay"></div>
+      </div>
+      <button class="btn btn-primary" id="extractBtn">
+        <span class="btn-text">Extract Items</span>
+        <span class="spinner" style="display:none;">
+          <svg class="loading-spinner" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bill Items Section -->
+  <div class="bill-section card-container" id="bill-section" style="display:none;">
+    <div class="section-header">
+      <h2>what's on the bill?</h2>
+      <button class="btn btn-icon" id="resetBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M9 9L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M15 9L9 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        New
+      </button>
+    </div>
+    <div class="items-list" id="items-list"></div>
+    <div class="add-item-container">
+  <button class="btn btn-floating" id="addItemBtn">+</button>
+</div>
+  </div>
+
+  <!-- People Management -->
+  <div class="people-section card-container" id="people-section" style="display:none;">
+    <h2>who's paying?</h2>
+    <div class="people-list">
+      <div class="person-input">
+        <div class="input-with-btn">
+          <input id="newPersonName" placeholder="Add person...">
+          <button class="btn btn-add" id="addPersonBtn">+</button>
+        </div>
+      </div>
+      <div class="people-chips" id="people-list"></div>
+    </div>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="summary-section card-container" id="summary-section" style="display:none;">
+    <h2>the damage 💸</h2>
+    <div class="summary-cards" id="summary-cards"></div>
+    <div class="total-card">
+      <div class="total-info">
+        <h3>total</h3>
+        <p class="total-amount">₹ <span id="total-bill">0.00</span></p>
+      </div>
+      <button class="btn btn-share" id="shareBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 5.12548 15.0077 5.24917 15.0227 5.37059L8.08639 9.32807C7.54894 8.8216 6.80397 8.5 6 8.5C4.34315 8.5 3 9.84315 3 11.5C3 13.1569 4.34315 14.5 6 14.5C6.80397 14.5 7.54894 14.1784 8.08639 13.6719L15.0227 17.6294C15.0077 17.7508 15 17.8745 15 18C15 19.6569 16.3431 21 18 21C19.6569 21 21 19.6569 21 18C21 16.3431 19.6569 15 18 15C17.1475 15 16.3665 15.3686 15.8223 15.9487L9.1569 12.1699C9.21983 11.9531 9.25 11.7286 9.25 11.5C9.25 11.2714 9.21983 11.0469 9.1569 10.8301L15.8223 7.05132C16.3665 7.63138 17.1475 8 18 8Z" fill="currentColor"/>
+        </svg>
+        Share
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/app.js') }}"></script>
+</body>
+</html>
