@@ -33,10 +33,16 @@ fileInput.onchange = (e) => {
     reader.onload = (ev) => {
       previewImg.src = ev.target.result;
       imagePreview.style.display = '';
+      
+      // Disable the upload area and choose button once image is selected
+      uploadArea.style.pointerEvents = 'none';
+      uploadArea.style.opacity = '0.6';
+      chooseImageBtn.disabled = true;
     };
     reader.readAsDataURL(file);
   }
 };
+
 
 // Extract bill items from backend
 extractBtn.onclick = async () => {
@@ -206,6 +212,13 @@ function calculatePersonTotal(personId) {
   return total;
 }
 
+function resetUploadArea() {
+  uploadArea.style.pointerEvents = 'auto';
+  uploadArea.style.opacity = '1';
+  chooseImageBtn.disabled = false;
+  selectedFile = null;
+}
+
 // Add this at the beginning of your JavaScript file
 document.addEventListener('DOMContentLoaded', function() {
   // Dark mode toggle
@@ -261,4 +274,5 @@ resetBtn.onclick = () => {
   billSection.style.display = 'none';
   peopleSection.style.display = 'none';
   summarySection.style.display = 'none';
+  resetUploadArea();
 };
