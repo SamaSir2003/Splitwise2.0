@@ -5,10 +5,15 @@ import io
 import re
 import os
 
+# Create Flask app properly for Vercel
 app = Flask(__name__)
 
-api_key=os.environ.get('GENAI_API_KEY')
-genai.configure(api_key="AIzaSyDpZzAZpzubC-Fyu_oeHR2CYNrTFW8XmW0")
+# Get API key from environment variable
+api_key = os.environ.get('GENAI_API_KEY')
+if not api_key:
+    # Fallback for development only
+    api_key = "AIzaSyDpZzAZpzubC-Fyu_oeHR2CYNrTFW8XmW0"
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 @app.route('/')
@@ -37,7 +42,6 @@ def extract_bill():
             items = json.loads(match.group(0))
         else:
             items = []
-        print(items)
     except Exception:
         items = []
     return jsonify({
@@ -46,5 +50,9 @@ def extract_bill():
         'raw_response': response.text
     })
 
+# This is important for Vercel
+app.debug = True
+
+# For local development
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)
